@@ -5,6 +5,10 @@ on:
       - '*'
   schedule:
     - cron: '0 5 * * *' # every day at 5am
+  workflow_dispatch:
+    inputs: 
+      why:
+        default: 'test' 
 
 jobs:
   demo-redeploy:
