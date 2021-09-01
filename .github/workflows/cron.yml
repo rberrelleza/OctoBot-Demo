@@ -5,6 +5,10 @@ on:
       - '*'
   schedule:
     - cron: '0 5 * * *' # every day at 5am
+  workflow_dispatch:
+    inputs: 
+      why:
+        default: 'test' 
 
 jobs:
   demo-redeploy:
@@ -20,26 +24,12 @@ jobs:
       - name: "Destroy old demo stack"
         uses: okteto/destroy-stack@master
         with:
-          namespace: "octobot-drakkarsoftware"
+          namespace: "octobot-rberrelleza"
           name: "demo"
 
       - name: "Deploy new demo stack"
         uses: okteto/deploy-stack@master
         with:
-          namespace: octobot-drakkarsoftware
+          namespace: octobot-rberrelleza
           build: "false"
           name: "demo"
-
-  notify:
-    name: Notify
-    runs-on: ubuntu-latest
-    needs:
-      - demo-redeploy
-    if: ${{ failure() }}
-
-    steps:
-      - name: Notify discord
-        uses: sarisia/actions-status-discord@v1
-        with:
-          status: Failure
-          webhook: ${{ secrets.DISCORD_GITHUB_WEBHOOK }}
