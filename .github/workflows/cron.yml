@@ -1,10 +1,5 @@
 name: OctoBot-Demo-Cron
 on:
-  push:
-    branches:
-      - '*'
-  schedule:
-    - cron: '0 5 * * *' # every day at 5am
   workflow_dispatch:
     inputs: 
       why:
